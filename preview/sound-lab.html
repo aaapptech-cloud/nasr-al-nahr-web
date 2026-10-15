@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مختبر الأصوات</title>
+<style>:root{--lightningcss-light: ;--lightningcss-dark:initial;color-scheme:dark}body{color:#e8eefc;margin:0;background:#0b1220;max-width:560px;margin-inline:auto;padding:14px;font:16px/1.6 system-ui,sans-serif}h1{margin:.2em 0;font-size:22px}h2{color:#f5b83d;margin:1.4em 0 .3em;font-size:18px}p{color:#9aaacc;margin:.3em 0 .6em;font-size:14px}.row{flex-wrap:wrap;gap:8px;margin:6px 0;display:flex}button{font:inherit;color:#e8eefc;cursor:pointer;background:#16213d;border:2px solid #2a3a64;border-radius:12px;min-height:48px;padding:0 16px}button.on{background:#2a2410;border-color:#f5b83d}button.big{background:#d93a2b;border-color:#ffd77a;font-weight:700}input[type=range]{width:100%;height:36px}pre{text-align:left;white-space:pre-wrap;direction:ltr;background:#101a30;border-radius:10px;padding:10px;font-size:13px}.pick{align-items:center;gap:6px;margin:6px 0;display:flex}</style>
+  <script type="module" crossorigin src="../assets/soundlab-CFPymru1.js"></script>
+  <link rel="modulepreload" crossorigin href="../assets/music-C4wLka4A.js">
+</head>
+<body>
+<h1>مختبر الأصوات</h1>
+<p>اضغط «ابدأ الصوت» أولاً. جرّب كل بديل (أ، ب، ج) لكل صوت، واختر الأفضل بأذنك. ثم اضغط «احفظ اختياري» وأرسل لي الحروف.</p>
+<div class="row"><button class="big" id="start">ابدأ الصوت</button></div>
+
+<h2>١. صوت الطائرة (المحرك)</h2>
+<p>أ: طنين منخفض كألعاب الأركيد. ب: نفاثة بصفير رفيع. ج: مروحة تتقطع. اسحب الشريط لتجربة السرعة.</p>
+<div class="pick" id="pickEngine"></div>
+<div class="row"><button id="engOn">شغّل المحرك</button><button id="engOff">أوقفه</button></div>
+<input type="range" id="throttle" min="0" max="100" value="50" aria-label="السرعة">
+
+<h2>٢. الطلقات</h2>
+<p>أ: مدفع جاف. ب: طلقة أركيد. ج: بندقية خفيفة. «رشقة» تعطيك ست طلقات في الثانية كما في اللعبة.</p>
+<div class="pick" id="pickShot"></div>
+<div class="row"><button id="shot1">طلقة</button><button id="burst">رشقة ٣ ثوانٍ</button></div>
+
+<h2>٣. الانفجارات</h2>
+<p>أ: انفجار ثقيل. ب: خشن بأسلوب الأركيد. ج: سينمائي بصدى. جرّب الأحجام.</p>
+<div class="pick" id="pickBoom"></div>
+<div class="row"><button id="bS">طائرة أو سفينة</button><button id="bM">محطة وقود</button><button id="bL">جسر</button><button id="bX">زعيم</button></div>
+
+<h2>٤. تجربة المعركة كاملة</h2>
+<p>٨ ثوانٍ: المحرك والموسيقى ورشقات وانفجارات معاً، بالاختيارات الحالية. حرّك شدة الموسيقى.</p>
+<input type="range" id="inten" min="0" max="100" value="55" aria-label="شدة الموسيقى">
+<div class="row"><button class="big" id="battle">ابدأ المعركة</button><button id="stopAll">أوقف الكل</button></div>
+
+<h2>٥. احفظ اختيارك</h2>
+<div class="row"><button class="big" id="save">احفظ اختياري</button></div>
+<pre id="out">لم يُحفظ شيء بعد</pre>
+<p>الاختيار يُحفظ في هذا المتصفح، فاللعبة التي تفتحها على نفس العنوان تستخدمه فوراً. أرسل لي الحروف لأثبتها.</p>
+</body>
+</html>
