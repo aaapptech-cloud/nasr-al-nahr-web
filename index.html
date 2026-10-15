@@ -7,9 +7,9 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <title>نسر النهر</title>
-  <script type="module" crossorigin src="./assets/main-lSF4Nj8S.js"></script>
+  <script type="module" crossorigin src="./assets/main-Bw-alGGg.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/music-DTykzB--.js">
-  <link rel="stylesheet" crossorigin href="./assets/main-BxXhQy6I.css">
+  <link rel="stylesheet" crossorigin href="./assets/main-BF6mljY7.css">
 </head>
 <body>
 <div id="app" dir="rtl" lang="ar">
@@ -35,15 +35,25 @@
     <div class="hint" id="hint" hidden aria-live="polite"></div>
     <div class="toast" id="toast" hidden role="status" aria-live="polite"></div>
     <div class="gauge" id="gauge">
-      <span class="gl" data-i18n="hud.fuel"></span>
+      <span class="gl" data-i18n-aria="hud.fuel" role="img"><svg viewBox="0 0 12 14" width="15" height="17" aria-hidden="true"><path d="M1 1h6v12H1z" fill="currentColor"/><path d="M8 4l2 1.2v5a1 1 0 0 0 2 0V5.2L10 3" fill="none" stroke="currentColor" stroke-width="1.3"/><rect x="2" y="2" width="4" height="3" fill="#0b1220"/></svg></span>
       <div class="meter"><span>E</span><div class="bar"><i id="fuelFill"></i></div><span>F</span></div>
     </div>
     <button class="special" id="special" type="button" hidden data-i18n-aria="hud.specialAria"></button>
-    <div class="cockpit" id="cockpit" hidden>
-      <div class="cp-prog"><span class="cp-label" id="cpLabel"></span><div class="cp-bar"><i id="cpFill"></i></div></div>
-      <div class="cp-status" id="cpStatus"></div>
-      <div class="cp-line" id="cpMission" hidden></div>
-      <div class="cp-tip" id="cpTip" hidden></div>
+    <div class="dock" id="dock" hidden>
+      <div class="dock-fire" id="dockFire"></div>
+      <div class="dock-mid">
+        <span class="dm-label" data-i18n="hud.mission"></span>
+        <div class="dm-top"><span class="dm-title" id="cpTitle"></span></div>
+        <div class="cp-bar"><i id="cpFill"></i></div>
+        <div class="dm-nums" id="cpNums"></div>
+      </div>
+      <div class="dock-mode">
+        <span class="dm-label" data-i18n="hud.fireMode"></span>
+        <div class="seg2" id="fireMode" role="group" data-i18n-aria="hud.fireMode">
+          <button type="button" id="fmManual" data-i18n="hud.fmManual"></button>
+          <button type="button" id="fmAuto" data-i18n="hud.fmAuto"></button>
+        </div>
+      </div>
     </div>
     <button class="autotog" id="autoTog" type="button" aria-pressed="false"></button>
     <button class="fire" id="fire" type="button" data-i18n="hud.fire" data-i18n-aria="hud.fireAria"></button>
