@@ -7,9 +7,9 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <title>نسر النهر</title>
-  <script type="module" crossorigin src="./assets/main-D5zW7BBu.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/music-ClA3_U13.js">
-  <link rel="stylesheet" crossorigin href="./assets/main-q9ObIjUD.css">
+  <script type="module" crossorigin src="./assets/main-CMKFIea0.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/music-CMaQ0KXx.js">
+  <link rel="stylesheet" crossorigin href="./assets/main-DSUbyHXn.css">
 </head>
 <body>
 <div id="app" dir="rtl" lang="ar">
@@ -53,7 +53,7 @@
         <button class="btn" id="start" type="button" data-i18n="menu.start"></button>
         <button class="btn alt" id="dailyBtn" type="button" data-i18n="menu.daily"></button>
         <button class="btn alt" id="vsBtn" type="button" data-i18n="menu.versus"></button>
-        <button class="btn alt" id="lpBtn" type="button" data-i18n="menu.local2p"></button>
+        <button class="btn alt" id="duelBtn" type="button" data-i18n="menu.duel"></button>
         <div class="pick">
           <span class="lbl" data-i18n="menu.startFrom"></span>
           <div class="opts" id="worldPick"></div>
@@ -242,6 +242,41 @@
       </div>
     </section>
 
+    <section class="panel" id="duel" hidden>
+      <div class="card">
+        <h2 data-i18n="duel.title"></h2>
+        <p class="lead" data-i18n="duel.lead"></p>
+        <h3 class="hgh" data-i18n="duel.vsBot"></h3>
+        <div class="row3">
+          <button class="btn alt" id="duelEasy" type="button" data-i18n="duel.easy"></button>
+          <button class="btn alt" id="duelMedium" type="button" data-i18n="duel.medium"></button>
+          <button class="btn alt" id="duelHard" type="button" data-i18n="duel.hard"></button>
+        </div>
+        <h3 class="hgh" data-i18n="duel.vsOnline"></h3>
+        <button class="btn" id="duelQuick" type="button" data-i18n="duel.quick"></button>
+        <div class="row">
+          <button class="chip" id="duelCreate" type="button" data-i18n="duel.create"></button>
+        </div>
+        <div class="row">
+          <input id="duelCode" maxlength="4" autocomplete="off" autocapitalize="characters" data-i18n-ph="duel.codePh" aria-label="room code">
+          <button class="chip" id="duelJoin" type="button" data-i18n="duel.join"></button>
+        </div>
+        <p class="lbl hintline" id="duelStatus"></p>
+        <button class="chip" id="duelSame" type="button" data-i18n="duel.sameDevice"></button>
+        <button class="chip" id="duelBack" type="button" data-i18n="hall.back"></button>
+      </div>
+    </section>
+
+    <section class="panel" id="duelWait" hidden>
+      <div class="card">
+        <h2 id="dwTitle"></h2>
+        <p class="lead" id="dwBody"></p>
+        <div class="roomcode" id="dwCode" hidden></div>
+        <button class="chip" id="dwShare" type="button" hidden data-i18n="duel.share"></button>
+        <button class="btn alt" id="dwCancel" type="button" data-i18n="duel.cancel"></button>
+      </div>
+    </section>
+
     <section class="panel" id="lp" hidden>
       <div class="card">
         <h2 data-i18n="lp.title"></h2>
@@ -260,9 +295,10 @@
     <section class="panel" id="lpEnd" hidden>
       <div class="card">
         <h2 id="leWinner"></h2>
+        <p class="goal" id="leNote" hidden></p>
         <div class="result">
-          <div><span class="lbl" data-i18n="lp.p1"></span><b id="lpS1">0</b><span class="lbl" id="lpC1"></span></div>
-          <div><span class="lbl" data-i18n="lp.p2"></span><b id="lpS2">0</b><span class="lbl" id="lpC2"></span></div>
+          <div><span class="lbl" id="lpName1"></span><b id="lpS1">0</b><span class="lbl" id="lpC1"></span></div>
+          <div><span class="lbl" id="lpName2"></span><b id="lpS2">0</b><span class="lbl" id="lpC2"></span></div>
         </div>
         <button class="btn" id="lpAgain" type="button" data-i18n="lp.rematch"></button>
         <button class="chip" id="lpMenu" type="button" data-i18n="pause.menu"></button>
