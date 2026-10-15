@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1220">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>نسر النهر</title>
+  <script type="module" crossorigin src="./assets/index-B49EpEEh.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-q9ObIjUD.css">
+</head>
+<body>
+<div id="app" dir="rtl" lang="ar">
+  <header class="hud">
+    <div class="stat"><span class="lbl" data-i18n="hud.score"></span><span class="num" id="score">0</span></div>
+    <div class="stat"><span class="lbl" data-i18n="hud.level"></span><span class="num" id="level">1</span></div>
+    <div class="stat">
+      <span class="lbl" data-i18n="hud.planes"></span>
+      <div class="lives" id="lives" dir="ltr"></div>
+      <div class="lifebar" data-i18n-title="hud.lifeBar"><i id="lifeFill"></i></div>
+    </div>
+    <div class="stat"><span class="lbl" data-i18n="hud.coins"></span><span class="num coinnum" id="coins">0</span></div>
+    <button class="iconbtn" id="pauseBtn" type="button" data-i18n-aria="hud.pause">
+      <svg viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" fill="currentColor"/><rect x="8.5" y="1" width="3.5" height="12" fill="currentColor"/></svg>
+    </button>
+  </header>
+
+  <main class="stage" id="stage">
+    <canvas id="cv" width="360" height="520" data-i18n-aria="hud.canvasAria"></canvas>
+    <div class="banner" id="banner" aria-live="polite"></div>
+    <div class="buffs" id="buffs"></div>
+    <div class="mult" id="mult" hidden></div>
+    <div class="hint" id="hint" hidden aria-live="polite"></div>
+    <div class="toast" id="toast" hidden role="status" aria-live="polite"></div>
+    <div class="gauge" id="gauge">
+      <span class="gl" data-i18n="hud.fuel"></span>
+      <div class="meter"><span>E</span><div class="bar"><i id="fuelFill"></i></div><span>F</span></div>
+    </div>
+    <button class="special" id="special" type="button" hidden data-i18n-aria="hud.specialAria"></button>
+    <button class="autotog" id="autoTog" type="button" aria-pressed="false"></button>
+    <button class="fire" id="fire" type="button" data-i18n="hud.fire" data-i18n-aria="hud.fireAria"></button>
+
+    <section class="panel" id="menu">
+      <div class="card">
+        <h1 data-i18n="app.title"></h1>
+        <p class="lead" data-i18n="menu.lead"></p>
+        <div class="legend">
+          <span class="lbl" data-i18n="menu.points"></span>
+          <div class="pts" id="pts"></div>
+        </div>
+        <button class="btn" id="start" type="button" data-i18n="menu.start"></button>
+        <button class="btn alt" id="dailyBtn" type="button" data-i18n="menu.daily"></button>
+        <button class="btn alt" id="vsBtn" type="button" data-i18n="menu.versus"></button>
+        <button class="btn alt" id="lpBtn" type="button" data-i18n="menu.local2p"></button>
+        <div class="pick">
+          <span class="lbl" data-i18n="menu.startFrom"></span>
+          <div class="opts" id="worldPick"></div>
+        </div>
+        <ul class="how">
+          <li data-i18n="menu.howTouch"></li>
+          <li data-i18n="menu.howKeys"></li>
+          <li data-i18n="menu.howLives" data-i18n-params='{"score":5000}'></li>
+          <li data-i18n="menu.howPower"></li>
+        </ul>
+        <div class="best">
+          <span><span data-i18n="menu.best"></span> <b id="best">0</b></span>
+          <div class="opts">
+            <button class="chip" id="hangarBtn" type="button"></button>
+            <button class="chip" id="progressBtn" type="button"></button>
+            <button class="chip" id="settingsBtn" type="button" data-i18n="menu.settings"></button>
+            <button class="chip" id="hallBtn" type="button" data-i18n="menu.hall"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="pause" hidden>
+      <div class="card">
+        <h2 data-i18n="pause.title"></h2>
+        <button class="btn" id="resume" type="button" data-i18n="pause.resume"></button>
+        <div class="opts">
+          <button class="chip" id="pauseSettings" type="button" data-i18n="menu.settings"></button>
+          <button class="chip" id="pauseQuit" type="button" data-i18n="pause.menu"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="over" hidden>
+      <div class="card">
+        <h2 data-i18n="over.title"></h2>
+        <div class="result">
+          <div><span class="lbl" data-i18n="over.score"></span><b id="goScore">0</b></div>
+          <div><span class="lbl" data-i18n="over.level"></span><b id="goLevel">1</b></div>
+        </div>
+        <p class="newbest" id="goNew" hidden data-i18n="over.newBest"></p>
+        <p class="lbl" id="goPractice" hidden data-i18n="over.practice"></p>
+        <form class="nameform" id="nameForm" hidden>
+          <label class="lbl" for="nameInput" data-i18n="over.nameLabel"></label>
+          <div class="row">
+            <input id="nameInput" maxlength="12" autocomplete="off" data-i18n-ph="over.namePlaceholder">
+            <button class="chip" type="submit" data-i18n="over.nameSave"></button>
+          </div>
+        </form>
+        <p class="goal" id="goGoal"></p>
+        <div class="publish" id="publishRow" hidden>
+          <input id="pubName" maxlength="12" autocomplete="off" hidden data-i18n-ph="over.namePlaceholder">
+          <button class="chip" id="publishBtn" type="button" data-i18n="over.publish"></button>
+          <span class="lbl" id="publishStatus"></span>
+        </div>
+        <div class="hof" id="hofOver"></div>
+        <button class="btn alt" id="overContinue" type="button" hidden data-i18n="ad.continue"></button>
+        <button class="chip" id="overNoAds" type="button" hidden data-i18n="shop.removeAdsShort"></button>
+        <button class="btn" id="again" type="button" data-i18n="over.again"></button>
+      </div>
+    </section>
+
+    <section class="panel" id="levelEnd" hidden>
+      <div class="card">
+        <h2 id="leTitle"></h2>
+        <div class="stars" id="leStars" role="img"></div>
+        <ul class="starlist" id="leList"></ul>
+        <p class="goal" id="leCoins"></p>
+        <div class="result three">
+          <div><span class="lbl" data-i18n="level.score"></span><b id="leScore">0</b></div>
+          <div><span class="lbl" data-i18n="level.fuel"></span><b id="leFuel">0</b></div>
+          <div><span class="lbl" data-i18n="level.deaths"></span><b id="leDeaths">0</b></div>
+        </div>
+        <button class="btn alt" id="leDouble" type="button" hidden data-i18n="ad.double"></button>
+        <button class="btn" id="leNext" type="button" data-i18n="level.next"></button>
+      </div>
+    </section>
+
+    <section class="panel" id="hangar" hidden>
+      <div class="card">
+        <h2 data-i18n="hangar.title"></h2>
+        <p class="coinsline"><span data-i18n="hangar.coins"></span> <b id="hgCoins">0</b></p>
+        <h3 class="hgh" data-i18n="hangar.upgrades"></h3>
+        <div class="hglist" id="hgUp"></div>
+        <h3 class="hgh" data-i18n="hangar.weapons"></h3>
+        <div class="hglist" id="hgWeapons"></div>
+        <h3 class="hgh" data-i18n="hangar.skins"></h3>
+        <p class="lbl hintline" data-i18n="hangar.skinNote"></p>
+        <div class="skins" id="hgSkins"></div>
+        <button class="btn" id="hgBack" type="button" data-i18n="hall.back"></button>
+      </div>
+    </section>
+
+    <section class="panel" id="settings" hidden>
+      <div class="card">
+        <h2 data-i18n="set.title"></h2>
+        <div class="setlist">
+          <label class="setrow"><span data-i18n="set.sfx"></span><input type="range" id="setSfx" min="0" max="100" step="5"></label>
+          <label class="setrow"><span data-i18n="set.music"></span><input type="range" id="setMusic" min="0" max="100" step="5"></label>
+          <label class="setrow"><span data-i18n="set.sens"></span><input type="range" id="setSens" min="8" max="16" step="1"></label>
+          <div class="setrow"><span data-i18n="set.hand"></span>
+            <span class="seg">
+              <button class="chip" id="setHandR" type="button" aria-pressed="true" data-i18n="set.handRight"></button>
+              <button class="chip" id="setHandL" type="button" aria-pressed="false" data-i18n="set.handLeft"></button>
+            </span>
+          </div>
+          <p class="lbl hintline" data-i18n="set.handHint"></p>
+          <div class="setrow"><span data-i18n="set.vibration"></span><button class="switch" id="setVib" type="button" role="switch" aria-checked="true"></button></div>
+          <div class="setrow"><span data-i18n="set.auto"></span><button class="switch" id="setAuto" type="button" role="switch" aria-checked="false"></button></div>
+          <div class="setrow"><span data-i18n="set.oneHand"></span><button class="switch" id="setOne" type="button" role="switch" aria-checked="false"></button></div>
+          <div class="setrow"><span data-i18n="set.reduceFx"></span><button class="switch" id="setFx" type="button" role="switch" aria-checked="false"></button></div>
+          <p class="lbl hintline" data-i18n="set.reduceFxHint"></p>
+          <div class="setrow"><span data-i18n="opt.language"></span><button class="chip" id="setLang" type="button"></button></div>
+          <div id="shopBox" hidden>
+            <h3 class="sub" data-i18n="shop.title"></h3>
+            <div class="setrow"><button class="chip wide" id="shop_remove_ads" type="button"></button></div>
+            <div class="setrow"><button class="chip wide" id="shop_skin_pack" type="button"></button></div>
+            <div class="setrow"><button class="chip" id="shopRestore" type="button" data-i18n="shop.restore"></button></div>
+            <p class="lbl hintline" data-i18n="shop.hint"></p>
+            <div class="setrow"><span data-i18n="set.stats"></span><button class="switch" id="setStats" type="button" role="switch" aria-checked="true"></button></div>
+            <p class="lbl hintline" data-i18n="set.statsHint"></p>
+            <div class="setrow"><button class="chip" id="shopPrivacyOpts" type="button" hidden data-i18n="shop.privacyOptions"></button></div>
+          </div>
+          <div class="setrow legal"><a class="chip" id="legalPrivacy" href="privacy.html" target="_blank" rel="noopener" data-i18n="legal.privacy"></a><a class="chip" href="licenses.html" target="_blank" rel="noopener" data-i18n="legal.licenses"></a></div>
+          <div class="setrow"><button class="chip" id="deleteData" type="button" data-i18n="legal.deleteData"></button></div>
+          <p class="lbl hintline" id="deleteStatus" data-i18n="legal.deleteHint"></p>
+          <div class="setrow"><button class="chip" id="setTutorial" type="button" data-i18n="set.replayTutorial"></button></div>
+        </div>
+        <button class="btn" id="setBack" type="button" data-i18n="hall.back"></button>
+      </div>
+    </section>
+
+    <section class="panel" id="hall" hidden>
+      <div class="card">
+        <h2 data-i18n="hall.title"></h2>
+        <div class="tabs" id="hallTabs" role="tablist">
+          <button class="chip" type="button" role="tab" data-board="local" data-i18n="board.local"></button>
+          <button class="chip" type="button" role="tab" data-board="daily" data-i18n="board.daily"></button>
+          <button class="chip" type="button" role="tab" data-board="weekly" data-i18n="board.weekly"></button>
+          <button class="chip" type="button" role="tab" data-board="all" data-i18n="board.all"></button>
+        </div>
+        <p class="lbl hintline" id="hallNote"></p>
+        <div class="hof" id="hofBox"></div>
+        <button class="btn" id="hallBack" type="button" data-i18n="hall.back"></button>
+      </div>
+    </section>
+
+    <section class="panel" id="daily" hidden>
+      <div class="card">
+        <h2 data-i18n="daily.title"></h2>
+        <p class="lead" id="dyInfo"></p>
+        <div class="result">
+          <div><span class="lbl" data-i18n="daily.attempts"></span><b id="dyLeft">3</b></div>
+          <div><span class="lbl" data-i18n="daily.best"></span><b id="dyBest">0</b></div>
+        </div>
+        <button class="btn" id="dyPlay" type="button" data-i18n="daily.play"></button>
+        <p class="lbl hintline" data-i18n="daily.rules"></p>
+        <h3 class="hgh" data-i18n="board.daily"></h3>
+        <p class="lbl hintline" id="dyNote"></p>
+        <div class="hof" id="dyBoard"></div>
+        <button class="btn" id="dyBack" type="button" data-i18n="hall.back"></button>
+      </div>
+    </section>
+
+    <section class="panel" id="dailyEnd" hidden>
+      <div class="card">
+        <h2 data-i18n="daily.endTitle"></h2>
+        <div class="result">
+          <div><span class="lbl" data-i18n="over.score"></span><b id="deScore">0</b></div>
+          <div><span class="lbl" data-i18n="daily.best"></span><b id="deBest">0</b></div>
+        </div>
+        <p class="newbest" id="deNew" hidden data-i18n="daily.newBest"></p>
+        <p class="goal" id="deStatus"></p>
+        <form class="nameform" id="deNameForm" hidden>
+          <label class="lbl" for="deName" data-i18n="daily.nameNeeded"></label>
+          <div class="row">
+            <input id="deName" maxlength="12" autocomplete="off" data-i18n-ph="over.namePlaceholder">
+            <button class="chip" type="submit" data-i18n="over.nameSave"></button>
+          </div>
+        </form>
+        <p class="goal" id="deVs" hidden></p>
+        <button class="chip" id="deShare" type="button" data-i18n="vs.shareDaily"></button>
+        <div class="hof" id="deBoard"></div>
+        <button class="btn" id="deAgain" type="button"></button>
+        <button class="chip" id="deMenu" type="button" data-i18n="pause.menu"></button>
+      </div>
+    </section>
+
+    <section class="panel" id="lp" hidden>
+      <div class="card">
+        <h2 data-i18n="lp.title"></h2>
+        <ul class="how">
+          <li data-i18n="lp.rule1"></li>
+          <li data-i18n="lp.rule2"></li>
+          <li data-i18n="lp.rule3"></li>
+          <li data-i18n="lp.rule4"></li>
+          <li data-i18n="lp.rule5"></li>
+        </ul>
+        <button class="btn" id="lpStart" type="button" data-i18n="lp.start"></button>
+        <button class="chip" id="lpBack" type="button" data-i18n="hall.back"></button>
+      </div>
+    </section>
+
+    <section class="panel" id="lpEnd" hidden>
+      <div class="card">
+        <h2 id="leWinner"></h2>
+        <div class="result">
+          <div><span class="lbl" data-i18n="lp.p1"></span><b id="lpS1">0</b><span class="lbl" id="lpC1"></span></div>
+          <div><span class="lbl" data-i18n="lp.p2"></span><b id="lpS2">0</b><span class="lbl" id="lpC2"></span></div>
+        </div>
+        <button class="btn" id="lpAgain" type="button" data-i18n="lp.rematch"></button>
+        <button class="chip" id="lpMenu" type="button" data-i18n="pause.menu"></button>
+      </div>
+    </section>
+
+    <section class="panel" id="versus" hidden>
+      <div class="card">
+        <h2 data-i18n="vs.title"></h2>
+        <p class="lead" data-i18n="vs.lead"></p>
+        <button class="btn" id="vsCreate" type="button" data-i18n="vs.create"></button>
+        <h3 class="hgh" data-i18n="vs.history"></h3>
+        <div class="hglist" id="vsHistory"></div>
+        <button class="btn" id="vsBack" type="button" data-i18n="hall.back"></button>
+      </div>
+    </section>
+
+    <section class="panel" id="vsInvite" hidden>
+      <div class="card">
+        <h2 id="viTitle"></h2>
+        <p class="lead" id="viBody"></p>
+        <p class="goal" id="viNote"></p>
+        <button class="btn" id="viAccept" type="button" data-i18n="vs.accept"></button>
+        <button class="chip" id="viDecline" type="button" data-i18n="vs.decline"></button>
+      </div>
+    </section>
+
+    <section class="panel" id="vsEnd" hidden>
+      <div class="card">
+        <h2 id="veTitle"></h2>
+        <div class="result">
+          <div><span class="lbl" data-i18n="vs.you"></span><b id="veMine">0</b></div>
+          <div><span class="lbl" id="veTheirsLbl"></span><b id="veTheirs">0</b></div>
+        </div>
+        <p class="newbest" id="veOutcome" hidden></p>
+        <p class="goal" id="veNote"></p>
+        <form class="nameform" id="veNameForm" hidden>
+          <label class="lbl" for="veName" data-i18n="daily.nameNeeded"></label>
+          <div class="row">
+            <input id="veName" maxlength="12" autocomplete="off" data-i18n-ph="over.namePlaceholder">
+            <button class="chip" type="submit" data-i18n="over.nameSave"></button>
+          </div>
+        </form>
+        <input class="linkbox" id="veLink" readonly hidden>
+        <button class="btn" id="veSend" type="button"></button>
+        <div class="opts">
+          <button class="chip" id="veAgain" type="button" data-i18n="vs.again"></button>
+          <button class="chip" id="veNew" type="button" data-i18n="vs.new"></button>
+          <button class="chip" id="veMenu" type="button" data-i18n="pause.menu"></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="progress" hidden>
+      <div class="card">
+        <h2 data-i18n="progress.title"></h2>
+        <h3 class="hgh" data-i18n="login.title"></h3>
+        <div class="logindays" id="pgLogin"></div>
+        <button class="btn" id="pgClaim" type="button"></button>
+        <h3 class="hgh" data-i18n="missions.title"></h3>
+        <div class="hglist" id="pgMissions"></div>
+        <h3 class="hgh" data-i18n="event.title"></h3>
+        <div class="hglist" id="pgEvent"></div>
+        <h3 class="hgh" id="pgAchTitle"></h3>
+        <div class="hglist" id="pgAch"></div>
+        <button class="btn" id="pgBack" type="button" data-i18n="hall.back"></button>
+      </div>
+    </section>
+  </main>
+  <div class="deck" id="deck"><div class="deck-side" id="deckSide"></div></div>
+</div>
+</body>
+</html>

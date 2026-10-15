@@ -1,2 +1,3 @@
-# nasr-al-nahr-web
-Nasr Al-Nahar web build (built files only)
+# Nasr Al-Nahr (River Eagle), web build
+
+The playable web version. Built files only; the source code is private.
