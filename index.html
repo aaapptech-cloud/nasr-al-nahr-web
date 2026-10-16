@@ -7,9 +7,9 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <title>River Eagle</title>
-  <script type="module" crossorigin src="./assets/main-CcXskKt6.js"></script>
+  <script type="module" crossorigin src="./assets/main-DFBiujXO.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/music-DM7tjJRj.js">
-  <link rel="stylesheet" crossorigin href="./assets/main-BScdYGTu.css">
+  <link rel="stylesheet" crossorigin href="./assets/main-X1ZJld9g.css">
 </head>
 <body>
 <div id="app" dir="ltr" lang="en">
@@ -66,10 +66,12 @@
           <span class="lbl" data-i18n="menu.points"></span>
           <div class="pts" id="pts"></div>
         </div>
-        <button class="btn" id="start" type="button" data-i18n="menu.start"></button>
-        <button class="btn alt" id="dailyBtn" type="button" data-i18n="menu.daily"></button>
-        <button class="btn alt" id="vsBtn" type="button" data-i18n="menu.versus"></button>
-        <button class="btn alt" id="duelBtn" type="button" data-i18n="menu.duel"></button>
+        <button class="btn start" id="start" type="button"><i class="play" aria-hidden="true"></i><span data-i18n="menu.start"></span></button>
+        <div class="modes">
+          <button class="btn alt mode m-daily" id="dailyBtn" type="button"><i aria-hidden="true"></i><span data-i18n="menu.daily"></span></button>
+          <button class="btn alt mode m-friend" id="vsBtn" type="button"><i aria-hidden="true"></i><span data-i18n="menu.versus"></span></button>
+          <button class="btn alt mode m-versus" id="duelBtn" type="button"><i aria-hidden="true"></i><span data-i18n="menu.duel"></span></button>
+        </div>
         <div class="pick">
           <span class="lbl" data-i18n="menu.startFrom"></span>
           <div class="opts" id="worldPick"></div>
