@@ -1,6 +1,6 @@
 {
-  "name": "نسر النهر",
-  "short_name": "نسر النهر",
+  "name": "River Eagle",
+  "short_name": "River Eagle",
   "description": "River Eagle: a vertical river-flight arcade shooter.",
   "start_url": "./",
   "scope": "./",
@@ -8,8 +8,8 @@
   "orientation": "portrait",
   "background_color": "#0b1220",
   "theme_color": "#0b1220",
-  "lang": "ar",
-  "dir": "rtl",
+  "lang": "en",
+  "dir": "ltr",
   "icons": [
     {
       "src": "../icons/icon-48.webp",
